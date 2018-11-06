@@ -2,6 +2,7 @@ package hello;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,16 @@ public class GreetingController {
         Greeting newGreeting = new Greeting(counter.incrementAndGet(), String.format(template, name));
         greetingList.add(newGreeting);
         return newGreeting;
+    }
+
+    @RequestMapping("/tokenizer")
+    public List<String> tokenthis(@RequestParam(value="text", defaultValue="This is what it would look like you see") String textString) {
+        StringTokenizer st = new StringTokenizer(textString," ");
+        List<String> tokenizedWords = new ArrayList<>();
+        while (st.hasMoreTokens()) {
+            tokenizedWords.add(st.nextToken());
+        }
+        return tokenizedWords;
     }
 
     @RequestMapping("/allgreetings")
